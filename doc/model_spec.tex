@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\title{Data-Generation Model Checkpoint}
+\date{}
+
+\begin{document}\maketitle
+
+\section{Pattern bank}
+
+For each pattern $k\in\{0,\dots, K-1\}$ and component
+$c\in\{0,\dots,8\}$ we store
+\[
+g_{k,c}\in\{0,1\},\quad
+m_{k,c}\ge0,\quad
+\varphi_{k,c}\in(-\pi,\pi],\quad
+\phi^{f}_{k,c},\phi^{t}_{k,c}\in(-\pi,\pi].
+\]
+
+\medskip
+\noindent
+Unit-norm energy on active cells
+\[
+\sum_{c:g_{k,c}=1} m_{k,c}^{2}=1.
+\]
+
+\medskip
+\noindent
+Continuous offsets
+\[
+\delta f_{k,c}= \frac{5}{2\pi}\phi^{f}_{k,c},
+\qquad
+\delta n_{k,c}= \frac{5}{2\pi}\phi^{t}_{k,c},
+\qquad
+(\delta f,\delta n\in[-2,2]).
+\]
+
+\noindent Component value
+\[
+P_{k,c}=m_{k,c}\,e^{j\varphi_{k,c}}\in\mathbb C .
+\]
+
+\section{Occurrences}
+
+For each occurrence $r$:
+\[
+k_r,\;
+Z^{f}_{r}=e^{j\zeta^{f}_r},\;
+Z^{t}_{r}=e^{j\zeta^{t}_r},\;
+A_r=\rho_r e^{j\theta_r}.
+\]
+
+Decoded (possibly fractional) centre
+\[
+f_r=\frac{F}{2\pi}\arg Z^{f}_{r},
+\qquad
+n_r=\frac{N}{2\pi}\arg Z^{t}_{r}.
+\]
+
+\section{Synthesis}
+
+For every active component of pattern $k_r$
+\[
+\hat f=f_r+\delta f_{k_r,c},
+\qquad
+\hat n=n_r+\delta n_{k_r,c}.
+\]
+
+Let $f_1=\lfloor\hat f\rfloor$, $n_1=\lfloor\hat n\rfloor$,
+$w_f=\hat f-f_1$, $w_n=\hat n-n_1$.
+The complex value
+\[
+\text{val}=A_r\,P_{k_r,c}\,g_{k_r,c}
+\]
+is distributed to the four neighbouring lattice cells with bilinear
+weights
+\[
+(1-w_f)(1-w_n),\;(1-w_f)w_n,\;w_f(1-w_n),\;w_f w_n.
+\]
+
+\section{Feature tensor}
+
+\[
+X[f,n,:]=
+\bigl(
+A_{f,n},\;
+e^{j\frac{2\pi f}{F}},\;
+e^{j\frac{2\pi n}{N}}
+\bigr)\in\mathbb C^{3}.
+\]
+
+\end{document}

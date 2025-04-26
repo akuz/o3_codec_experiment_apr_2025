@@ -1,2 +1,3 @@
 # o3_codec_experiment_apr_2025
-TODO
+
+Link to blog post: https://akuz.me/nko

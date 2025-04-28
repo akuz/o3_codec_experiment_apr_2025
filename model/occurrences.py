@@ -31,9 +31,14 @@ class OccurrenceParameters(nn.Module):
         -------
         sel : (M,K) float tensor  – one-hot rows in forward
         """
+
+        # NOTE (AK): this also works, since we are not using "soft" for now:
+        # return F.gumbel_softmax(self.alpha, tau=tau, hard=True, dim=-1)
+
         soft = F.gumbel_softmax(self.alpha, tau=tau, hard=False, dim=-1)
         hard = torch.zeros_like(soft).scatter_(-1,
                                                soft.argmax(dim=-1, keepdim=True),
                                                1.0)
         sel = hard.detach() + soft - soft.detach()
         return sel
+    

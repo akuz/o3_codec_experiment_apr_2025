@@ -14,9 +14,6 @@ def main():
     # ------------------------------------------------ synthetic demo data
     F, N = 64, 256
     rng = torch.Generator().manual_seed(0)
-
-    # target = (torch.randn(F, N, generator=rng) +
-    #           1j * torch.randn(F, N, generator=rng)) * 0.1
     
     # 2-D sinusoid:  period N/3 along time, F/2 along freq
     f_idx = torch.arange(F).float().unsqueeze(1)          # (F,1)
@@ -26,6 +23,9 @@ def main():
     phase_imag = 2*math.pi * (t_idx / (N/3) - f_idx / (F/2))   # opposite tilt
 
     target = torch.sin(phase_real) + 1j * torch.sin(phase_imag)   # (F,N) complex
+
+    # target = (torch.randn(F, N, generator=rng) +
+    #           1j * torch.randn(F, N, generator=rng)) * 0.1
 
     # ------------------------------------------------ hyper-params
     # K, M = 64, 500            # patterns, occurrences

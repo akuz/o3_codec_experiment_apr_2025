@@ -31,8 +31,12 @@ class CodecModel(nn.Module):
         dT_sel = dT[k_idx]
         g_sel  = g_soft[k_idx]                         # (M,9)  weights 0–1
 
-        f_c = (self.F / (2 * math.pi)) * self.occ.zeta_f
-        n_c = (self.N / (2 * math.pi)) * self.occ.zeta_t
+        f_c = (self.F / (2 * math.pi)) * self.occ.zeta_f + 0.5
+        n_c = (self.N / (2 * math.pi)) * self.occ.zeta_t + 0.5
+
+        f_c = f_c.remainder(self.F)
+        n_c = n_c.remainder(self.N)
+
         amp = torch.exp(self.occ.log_rho) * torch.exp(1j * self.occ.theta)
 
         A = torch.zeros(self.F, self.N,

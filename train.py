@@ -28,8 +28,8 @@ def main():
     #           1j * torch.randn(F, N, generator=rng)) * 0.1
 
     # ------------------------------------------------ hyper-params
-    # K, M = 64, 500            # patterns, occurrences
-    K, M = 4, 5000            # patterns, occurrences
+    # K, M = 64, 500          # patterns, occurrences
+    K, M = 4, 4000            # patterns, occurrences
     epochs = 5000
 
     model = CodecModel(F, N, K, M)
